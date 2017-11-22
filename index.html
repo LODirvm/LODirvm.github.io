@@ -27,6 +27,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href='https://api.mapbox.com/mapbox-gl-js/v0.40.1/mapbox-gl.css' rel='stylesheet' />
+<script src="https://d3js.org/d3.v4.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="css\style.css" rel="stylesheet">
+<script src="https://unpkg.com/togeojson@0.14.2"></script>
 <!-- *******************DO NOT REMOVE***************** -->
 
 
@@ -120,6 +125,8 @@
 <script type="text/javascript" src="scripts/d3.v3.min.js"></script>
 <script type="text/javascript" src="scripts/metatable.js"></script>
 
+
+
 <!-- End Scripts Data Load -->
 
 
@@ -174,216 +181,100 @@
         }
         #map {
             position: fixed;
-            top: 6%;
+            top: 5%;
             bottom: 0;
             width: 100%;
 			z-index: 0;
         }
-        #export {
-			position: fixed;
-            background-color: #ff0000;
-			border: none;
-			color: white;
-			padding: 13px 40px;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-			font-size: 16px;
-			top:0.4%;
-			right:4.5px;
-			z-index: 2;
-        }
-		.myButton {
-			-moz-box-shadow:inset 0px 1px 0px 0px #9acc85;
-			-webkit-box-shadow:inset 0px 1px 0px 0px #9acc85;
-			box-shadow:inset 0px 1px 0px 0px #9acc85;
-			background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #74ad5a), color-stop(1, #68a54b));
-			background:-moz-linear-gradient(top, #74ad5a 5%, #68a54b 100%);
-			background:-webkit-linear-gradient(top, #74ad5a 5%, #68a54b 100%);
-			background:-o-linear-gradient(top, #74ad5a 5%, #68a54b 100%);
-			background:-ms-linear-gradient(top, #74ad5a 5%, #68a54b 100%);
-			background:linear-gradient(to bottom, #74ad5a 5%, #68a54b 100%);
-			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#74ad5a', endColorstr='#68a54b',GradientType=0);
-			background-color:#74ad5a;
-			border:1px solid #3b6e22;
-			display:inline-block;
-			cursor:pointer;
-			color:#ffffff;
-			font-family:Arial;
-			font-size:13px;
-			font-weight:bold;
-			padding:10px 12px;
-			text-decoration:none;
-		}
-		.myButton:hover {
-			background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #68a54b), color-stop(1, #74ad5a));
-			background:-moz-linear-gradient(top, #68a54b 5%, #74ad5a 100%);
-			background:-webkit-linear-gradient(top, #68a54b 5%, #74ad5a 100%);
-			background:-o-linear-gradient(top, #68a54b 5%, #74ad5a 100%);
-			background:-ms-linear-gradient(top, #68a54b 5%, #74ad5a 100%);
-			background:linear-gradient(to bottom, #68a54b 5%, #74ad5a 100%);
-			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#68a54b', endColorstr='#74ad5a',GradientType=0);
-			background-color:#68a54b;
-		}
-		.myButton:active {
-			position:relative;
-			top:1px;
-		}
+
 		body {margin:0;}
 
-		.topnav {
-			position: fixed;
-			left: 0px;
-			right: 0px;
-			overflow: hidden;
-			background-color: #333;
-			border: 2.5px solid gray;
-			z-index: 1;
-		}
 
-		.topnav a {
-			float: left;
-			display: block;
-			color: #f2f2f2;
-			text-align: center;
-			padding: 14px 16px;
-			text-decoration: none;
-			font-size: 17px;
-			
-		}
-
-		.topnav a.active {
-			background-color: #4CAF50;
-			color: white;
-		}
-		.info {
-			background-color:#ffffff;
-			-moz-border-radius:34px;
-			-webkit-border-radius:34px;
-			border-radius:34px;
-			border:3px solid #adadad;
-			display:inline-block;
-			cursor:pointer;
-			color:#000000;
-			font-family:Times New Roman;
-			font-size:20px;
-			font-style:italic;
-			padding:8px 16px;
-			text-decoration:none;
-			text-shadow:0px 0px 0px #0e3309;
-		}
-		.info:hover {
-			background-color:#ffffff;
-		}
-		.info:active {
-			position:relative;
-			top:0px;
-		}
-
-		#help {
-			position: absolute;
-            background-color: white;
-			border:2px solid gray;
-			color: black;
-			padding: 3px 15px;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-			font-size: 16px;
-			top: 1.5%;
-			right: 215px;
-			z-index: 2;
-        }
-		/* The Modal (background) */
-		.modal {
-			display: none; /* Hidden by default */
-			position: fixed; /* Stay in place */
-			z-index: 1; /* Sit on top */
-			padding-top: 100px; /* Location of the box */
-			left: 0;
-			top: 0;
-			width: 100%; /* Full width */
-			height: 100%; /* Full height */
-			overflow: auto; /* Enable scroll if needed */
-			background-color: rgb(0,0,0); /* Fallback color */
-			background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-		}
-
-		/* Modal Content */
-		.modal-content {
-			position: relative;
-			background-color: #fefefe;
-			margin: auto;
-			padding: 0;
-			border: 1px solid #888;
-			width: 80%;
-			box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-			-webkit-animation-name: animatetop;
-			-webkit-animation-duration: 0.4s;
-			animation-name: animatetop;
-			animation-duration: 0.4s
-		}
-
-		/* Add Animation */
-		@-webkit-keyframes animatetop {
-			from {top:-300px; opacity:0} 
-			to {top:0; opacity:1}
-		}
-
-		@keyframes animatetop {
-			from {top:-300px; opacity:0}
-			to {top:0; opacity:1}
-		}
-
-		/* The Close Button */
-		.close {
-			color: white;
-			float: right;
-			font-size: 28px;
-			font-weight: bold;
-		}
-
-		.close:hover,
-		.close:focus {
-			color: #000;
-			text-decoration: none;
-			cursor: pointer;
-		}
-
-		.modal-header {
-			padding: 2px 16px;
-			background-color: #5cb85c;
-			color: white;
-		}
-
-		.modal-body {padding: 2px 16px;}
 		
-		a.ex1:hover, a.ex1:active {color: #B1B1B1;}
-
 	</style>
 </head>
 
 <body>
-
 <div id='map'></div>
-<a href='#' class="myButton" id='export'>Export Features</a>
-<a href="#" class="info" id='help'>i</a>
-<div class="topnav" id="myTopnav">
-<a href="http://shaintranet/oed/default.aspx" target="_blank" class="ex1">Landscape Operations IRVM Web Application</a>
+<div>  
+ <nav class="my-navbar navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://shaintranet/oed/default.aspx" target="_blank">Landscape Operations IRVM Web API</a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="mn-aboutmenu nav navbar-nav">
+        <li><a href="#myModal"data-toggle="modal" id='about'>About	<span class="glyphicon glyphicon-question-sign"></span></a></li>
+			
+		
+      </ul>
+	  
+      <ul class="mn-primarymenu nav navbar-nav navbar-right">
+        <a href='#' class="btn btn-success navbar-btn" id='export'>Export Features</a>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
 </div>
-<div id="myModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-    <div class="modal-header">
-      <span class="close">&times;</span>
-      <h2><b>Exporting Features</b></h2>
-    </div>
-    <div class="modal-body">
-      <p>This web application exports drawn features in a geojson format. Future updates will hopefully allow downloads into other data types. <b>***</b>Note that features created using the measuring tool will not be extracted from export. Circular features are exported out as long/lat center points.<b>***</b></p>
-	  <p>To learn more about limits/structure for .json files <a href="https://macwright.org/2015/03/23/geojson-second-bite.html" target="_blank"> click here</a>.</p>
-      <p style="font-size:150%;">In order to convert .json files to .KMZ files, use <a href="http://geojson.io/#map=2/20.0/0.0" target="_blank">GeoJson.io</a>.</p>
-    </div>
-   </div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+
+                </button>
+                 <h4 class="modal-title" id="myModalLabel"><b>Landscape Operations Help Menu</b></h4>
+
+            </div>
+            <div class="modal-body">
+                <div role="tabpanel">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#aboutTab" aria-controls="aboutTab" role="tab" data-toggle="tab"><font color="#337ab7"><span class="glyphicon glyphicon-info-sign"></span>		About the API</a></font>
+                        </li>
+                        <li role="presentation"><a href="#contactTab" aria-controls="contactTab" role="tab" data-toggle="tab"><font color="#337ab7"><span class="glyphicon glyphicon-envelope"></span>	Contact Us</a></font>
+                        </li>
+						<li role="presentation"><a href="#disclaimerTab" aria-controls="disclaimerTab" role="tab" data-toggle="tab"><font color="#337ab7"><span class="glyphicon glyphicon-exclamation-sign"></span>	Disclaimer</a></font>
+                        </li>
+						<li role="presentation"><a href="#exportTab" aria-controls="exportTab" role="tab" data-toggle="tab"><font color="#337ab7"><span class="glyphicon glyphicon-cloud-download"></span>	Export</a></font>
+                        </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="aboutTab"><p><div></div>A simple and interactive web map application created by the technical resources team showing information regarding each IRVM project in the state of Maryland.</p>
+						<div class="panel panel-primary">
+								<div class="panel-heading">Web Application Features</div>
+									<ul class="list-group">
+										<li class="list-group-item">Export out drawn features for use in other programs</li>
+										<li class="list-group-item">Address locator for finding specific locations</li>
+										<li class="list-group-item">Measurement tool for finding length, area and other properties</li>
+										<li class="list-group-item">Bookmarking for saving important sites</li>
+										<li class="list-group-item">Print page option for saving out display in different formats</li>
+										<li class="list-group-item">Layer switching between different basemaps and overlay data</li>
+										<li class="list-group-item">Upload your own <b>KML</b> files up to 25MB</li>
+									</ul>
+							</div>
+						</div>
+						<div role="tabpanel" class="tab-pane fade" id="contactTab"><p><div></div>This application is intended to be as informative and user-friendly as possible. Contact us to report changes, concerns, or other feedback. <br></br><font color="blue"><a href="mailto:LResh@sha.state.md.us?subject=LOD Website Feedback -Enter Your Name-"><b>Send email</a></font></b>.</p></div>
+						<div role="tabpanel" class="tab-pane fade" id="disclaimerTab"><p><div></div><font color="red">The data provided on this site is for informational and planning purposes only. <br></br>Absolutely no accuracy or completeness guarantee is implied or intended. All information on this map is subject to such variations and corrections as might result from a complete title search and/or accurate field survey.</font></p></div>
+						<div role="tabpanel" class="tab-pane fade" id="exportTab"><p><div></div>This web application exports drawn features in a geojson format. Future updates will hopefully allow downloads into other data types. <br></br><font color="red"><b>***</b>Note that features created using the measuring tool will not be extracted from export. Circular features are exported out as their long/lat center points.<b>***</b></font></p>
+						<p>To learn more about limits/structure for .json files <a href="https://macwright.org/2015/03/23/geojson-second-bite.html" target="_blank"><font color="blue"> click here</a></font>.</p>
+						<p><b>In order to convert your .json files to .KMZ files or another format, use </b><a href="http://geojson.io/#map=2/20.0/0.0" target="_blank"><font color="blue">GeoJson.io</a></font><b>.</p></b></div>
+					</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      
 
 <script>
 
@@ -396,24 +287,27 @@ var map = L.map('map').setView([39.306675, -76.621742], 12);
 
 // Openstreet
 var OpenStreetMap_Mapnik = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-	maxZoom: 19,
+	maxZoom: 20,
 	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
 //Mapbox
 var Map_Box = new L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-  id: 'mapbox.streets'
+  id: 'mapbox.streets',
+  maxZoom: 20
  });
  
 // Mapbox Satellite
 var MapboxSatellite = new L.tileLayer ('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibHJlc2giLCJhIjoiY2ludXI3MmV5MTI0N3VnbHkycnpnenowNCJ9.VyMIrAJAszJ5wYecIHkwbg', {
-  id: 'mapbox.sate'
+  id: 'mapbox.sate',
+  maxZoom: 20
  });
  
  
  //Google Maps
 var Google = new L.tileLayer('http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {
-            attribution: 'google'
+            attribution: 'google',
+			maxZoom: 20
         });
  
  
@@ -421,7 +315,7 @@ var Google = new L.tileLayer('http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x
 var Esri_WorldImagery = new L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
 	format: 'image/png',
 	minZoom: 2,
-	maxZoom: 19,
+	maxZoom: 20,
 	opacity: 1,
 	attribution: 'Tiles &copy; <a href="http://www.esri.com">Esri</a> &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, and others'
 });
@@ -1432,6 +1326,48 @@ var control = new L.Control.Bookmarks({
 
 
 
+	
+  (function (window) {
+    'use strict';
+	
+	    function initMap() {
+        var control;
+        var L = window.L;
+	
+	        var style = {
+            color: 'purple',
+            opacity: 1.0,
+            fillOpacity: 1.0,
+            weight: 4,
+            clickable: false,
+			removable: true
+        };
+        L.Control.FileLayerLoad.LABEL = '<img class="icon" src="images\folder.svg" alt="file icon"/>';
+        control = L.Control.fileLayerLoad({
+            fitBounds: true,
+            layerOptions: {
+                style: style,
+                pointToLayer: function (data, latlng) {
+                    return L.circleMarker(
+                        latlng,
+                        { style: style }
+                    );
+                }
+            }
+        });
+        control.addTo(map);
+        control.loader.on('data:loaded', function (e) {
+            var layer = e.layer;
+            console.log(layer);
+        });
+    }
+
+    window.addEventListener('load', function () {
+        initMap();
+    });
+}(window));
+
+
 //    drawnItems = L.featureGroup().addTo(map);
 			
 //    map.addControl(new L.Control.Draw({
@@ -1485,6 +1421,7 @@ document.getElementById('export').onclick = function(e) {
         }
 
 		
+		
 //----------------------------------------------------------END MAP FUNCTIONS,TOOLS,& CONTROLS----------------------------------------------------------------------------------	
 
 
@@ -1496,35 +1433,10 @@ document.getElementById('export').onclick = function(e) {
 
 var popup = L.popup()
     .setLatLng([39.323438, -76.609383])
-    .setContent('<b>Change and add layers using the tool in top <center>right corner.</center></b><br><b> Basemaps are also limited to different zoom level.</b></br>')
+    .setContent('<b>Change and add layers using the tool in top <center>right corner.</center></b><br><b> Basemaps are limited to different zoom levels.')
     .openOn(map);
 
-	
-// Get the modal
-var modal = document.getElementById('myModal');
 
-// Get the button that opens the modal
-var btn = document.getElementById("help");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on the button, open the modal 
-btn.onclick = function() {
-    modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}	
 
 
 
