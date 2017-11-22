@@ -1,0 +1,19 @@
+.my-navbar {
+	background: #232222;
+	border-radius: 0;
+	border: 2px solid gray;
+}
+
+.my-navbar .navbar-brand{
+	color: white;
+}
+.my-navbar .mn-aboutmenu li a{
+	color: white;
+}
+
+
+.my-navbar .mn-primarymenu li a{
+	color: white;
+}
+
+.modal{padding: 10px 10px;}
